@@ -32,7 +32,9 @@ val navStackBackEntry by navController.currentBackStackEntryAsState()
 val currentDestination = navStackBackEntry?.destination
 ```
 #References
+
 https://developer.android.com/jetpack/compose/navigation#kts
+
 https://www.boltuix.com/2022/08/custom-bottom-navigation-bar.html
 
 # Screenshots
