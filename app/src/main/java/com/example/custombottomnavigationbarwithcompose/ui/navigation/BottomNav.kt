@@ -9,6 +9,7 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,7 +56,7 @@ fun BottomBar(navController: NavHostController) {
     val currentDestination = navStackBackEntry?.destination
     Row(
         modifier = Modifier
-            .padding(start = 10.dp, end = 10.dp, top = 12.dp, bottom = 10.dp)
+            .padding(start = 10.dp, end = 10.dp, top = 12.dp, bottom = 8.dp)
             .background(Color.Transparent)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -81,9 +82,11 @@ fun AddItem(
 ) {
     val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
-    val background =
-        if (selected) Green80.copy(alpha = 0.6f) else GreenGrey80
-        if (selected) Color.White else Color.White
+    val background = if (selected) {
+        Green80.copy(alpha = 0.6f)
+    } else {
+        MaterialTheme.colorScheme.background
+    }
 
     Box(
         modifier = Modifier
@@ -103,7 +106,7 @@ fun AddItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-
+            val isDarkTheme = isSystemInDarkTheme()
 
             //* if menu title : Report means we will show badge
             if(screen.title=="Report"){ // with badge
@@ -111,7 +114,7 @@ fun AddItem(
                     Icon(
                         painter = painterResource(id = if (selected) screen.iconFocused else screen.icon),
                         contentDescription = "icon",
-                        tint = Color.White
+                        tint = if (isDarkTheme) Color.White else Color.Black
                     )
                 }
 
@@ -121,8 +124,9 @@ fun AddItem(
                 Icon(
                     painter = painterResource(id = if (selected) screen.iconFocused else screen.icon),
                     contentDescription = "icon",
-                    tint = Color.White
+                    tint =if (isDarkTheme) Color.White else Color.Black
                 )
+
 
             }
 
